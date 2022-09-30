@@ -1,2 +1,2 @@
-# pathlib-functions
-A collection of shutil ports to pathlib
+# os-functions
+A collection of various python system functions.
