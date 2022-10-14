@@ -128,7 +128,7 @@ def set_verbose(new_state: bool) -> None:
     verbose = new_state
 
 
-# This is for non interactive shells
+# This is for non-interactive shells
 def disable_download_progress() -> None:
     global disable_download
     disable_download = True
