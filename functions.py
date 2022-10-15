@@ -67,7 +67,8 @@ def get_full_path(path_str: str) -> str:
 def cpdir(src_as_str: str, dst_as_string: str) -> None:  # dst_dir must be a full path, including the new dir name
     def copy_files(src: Path, dst: Path) -> None:
         # create dst dir if it doesn't exist
-        print(f"Copying {src} to {dst}")
+        if verbose:
+            print(f"Copying {src} to {dst}")
         mkdir(dst.absolute().as_posix(), create_parents=True)
         for src_file in src.iterdir():
             if src_file.is_file():
@@ -98,9 +99,11 @@ def cpdir(src_as_str: str, dst_as_string: str) -> None:  # dst_dir must be a ful
         raise FileNotFoundError(f"No such directory: {src_as_path.absolute().as_posix()}")
 
 
-def cpfile(src: str, dst: str) -> None:  # "/etc/resolv.conf", "/var/some_config/resolv.conf"
-    src_as_path = Path(src)
-    dst_as_path = Path(dst)
+def cpfile(src_as_str: str, dst_as_str: str) -> None:  # "/etc/resolv.conf", "/var/some_config/resolv.conf"
+    src_as_path = Path(src_as_str)
+    dst_as_path = Path(dst_as_str)
+    if verbose:
+        print(f"Copying {src_as_path.absolute().as_posix()} to {dst_as_path.absolute().as_posix()}")
     if src_as_path.exists():
         dst_as_path.write_bytes(src_as_path.read_bytes())
     else:
