@@ -78,7 +78,7 @@ def cpdir(src_as_str: str, dst_as_string: str) -> None:  # dst_dir must be a ful
                     new_dst = dst.joinpath(src_file.stem + src_file.suffix)
                     copy_files(src_file, new_dst)
                 else:
-                    print(f"No such file or directory: {src_file.absolute().as_posix()}, ignoring")
+                    raise FileNotFoundError(f"No such file or directory: {src_file.absolute().as_posix()}")
 
     src_as_path = Path(src_as_str)
     dst_as_path = Path(dst_as_string)
@@ -95,7 +95,7 @@ def cpdir(src_as_str: str, dst_as_string: str) -> None:  # dst_dir must be a ful
         '''
         bash(f"cp -rp {src_as_path.absolute().as_posix()}/* {dst_as_path.absolute().as_posix()}")
     else:
-        print("Source directory does not exist?")
+        raise FileNotFoundError(f"No such directory: {src_as_path.absolute().as_posix()}")
 
 
 def cpfile(src: str, dst: str) -> None:  # "/etc/resolv.conf", "/var/some_config/resolv.conf"
@@ -104,7 +104,7 @@ def cpfile(src: str, dst: str) -> None:  # "/etc/resolv.conf", "/var/some_config
     if src_as_path.exists():
         dst_as_path.write_bytes(src_as_path.read_bytes())
     else:
-        print(f"{src} does not exist, ignoring")
+        raise FileNotFoundError(f"No such file: {src_as_path.absolute().as_posix()}")
 
 
 #######################################################################################
