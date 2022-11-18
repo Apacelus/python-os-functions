@@ -132,18 +132,18 @@ def install_kernel_packages() -> None:
         return
 
     if path_exists("/usr/bin/apt"):  # Ubuntu + debian
-        bash("sudo apt-get install cgpt vboot-kernel-utils -y")
+        bash("apt-get install cgpt vboot-kernel-utils -y")
     elif path_exists("/usr/bin/pacman"):  # Arch
         # Download prepackaged cgpt + vboot from GitHub
         urlretrieve(
             "https://github.com/eupnea-linux/arch-packages/releases/latest/download/vboot-cgpt-utils.pkg.tar.zst",
             filename="/tmp/vboot-cgpt-utils.pkg.tar.zst")
         # Install packages
-        bash("sudo pacman --noconfirm -U /tmp/vboot-cgpt-utils.pkg.tar.zst")
+        bash("pacman --noconfirm -U /tmp/vboot-cgpt-utils.pkg.tar.zst")
     elif path_exists("/usr/bin/dnf"):  # Fedora
-        bash("sudo dnf install vboot-utils --assumeyes")  # cgpt is included in vboot-utils on fedora
+        bash("dnf install vboot-utils --assumeyes")  # cgpt is included in vboot-utils on fedora
     elif path_exists("/usr/bin/zypper"):  # openSUSE
-        bash("sudo zypper --non-interactive install vboot")
+        bash("zypper --non-interactive install vboot")
 
 
 #######################################################################################
